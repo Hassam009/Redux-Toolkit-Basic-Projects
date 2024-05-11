@@ -1,17 +1,27 @@
 import DeleteAllUser from "./DeleteAllUser"
 import styled from "styled-components";
+import { FakeUserData } from "../Api/data";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Store/Slices/UserSlice";
+import DisplayUser from "./DisplayUser";
+
+
 const UserDetails = () => {
+  const dispatch=useDispatch();
+  const addNewUser=(payload)=>{
+
+dispatch(addUser(payload));
+  };
+
   return (
     <Wrapper>
        <div className="content">
       <div className="admin-table">
         <div className="admin-subtitle">List of User Details </div>
-            <button className="btn add-btn">Add New Users</button>
+            <button className="btn add-btn" onClick={()=>addNewUser(FakeUserData()) }>Add New Users</button>
         </div>
         <ul>
-            <li>HI</li>
-            <li>HI</li>
-            <li>HI</li>
+            <DisplayUser></DisplayUser>
         </ul>
         <hr />
         <DeleteAllUser></DeleteAllUser>

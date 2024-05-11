@@ -1,11 +1,12 @@
-import React from 'react'
+import { configureStore } from "@reduxjs/toolkit"
+import UserSlice from "./UserSlice"
 
-const Index = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
 
-export default Index
+const store=configureStore({
+
+    reducer:{
+        users:UserSlice,
+    },
+})
+
+export default store;
