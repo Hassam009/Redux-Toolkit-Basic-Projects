@@ -1,36 +1,64 @@
-import DeleteAllUser from "./DeleteAllUser"
+import DeleteAllUser from "./DeleteAllUser";
 import styled from "styled-components";
-import { FakeUserData } from "../Api/data";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Store/Slices/UserSlice";
 import DisplayUser from "./DisplayUser";
 
+// Array of sample names
+const names = [
+  "John Smith",
+  "Emma Johnson",
+  "Michael Brown",
+  "Sophia Miller",
+  "William Wilson",
+  "Olivia Jones",
+  "James Davis",
+  "Isabella Taylor",
+  "Benjamin Martinez",
+  "Amelia Thomas"
+];
+
+// Function to generate random fake user data
+const FakeUserData = () => {
+  // Get a random index from the names array
+  const randomIndex = Math.floor(Math.random() * names.length);
+  // Return the name at the random index
+  return names[randomIndex];
+};
 
 const UserDetails = () => {
-  const dispatch=useDispatch();
-  const addNewUser=(payload)=>{
+  const dispatch = useDispatch();
 
-dispatch(addUser(payload));
+  const AddUserButton = () => {
+    const handleAddUser = () => {
+      const userData = FakeUserData(); // Generate fake user data
+      dispatch(addUser(userData)); // Dispatch the user data to the Redux store
+    };
+
+    return (
+      <button className="btn add-btn" onClick={handleAddUser}>
+        Add User
+      </button>
+    );
   };
 
   return (
     <Wrapper>
-       <div className="content">
-      <div className="admin-table">
-        <div className="admin-subtitle">List of User Details </div>
-            <button className="btn add-btn" onClick={()=>addNewUser(FakeUserData()) }>Add New Users</button>
+      <div className="content">
+        <div className="admin-table">
+          <div className="admin-subtitle">List of User Details </div>
+          <AddUserButton />
         </div>
         <ul>
-            <DisplayUser></DisplayUser>
+          <DisplayUser />
         </ul>
         <hr />
-        <DeleteAllUser></DeleteAllUser>
-     
+        <DeleteAllUser />
       </div>
     </Wrapper>
- 
-  )
-}
+  );
+};
+
 const Wrapper = styled.section`
   margin: 1rem 3.2rem;
 
@@ -66,10 +94,12 @@ const Wrapper = styled.section`
     filter: drop-shadow(0.2rem 0.2rem 0.5rem rgb(255 0 0 / 0.2));
     cursor: pointer;
   }
+
   @media screen and (max-width: 998px) {
     .admin-subtitle {
       margin-bottom: 1.6rem;
     }
   }
 `;
-export default UserDetails
+
+export default UserDetails;
